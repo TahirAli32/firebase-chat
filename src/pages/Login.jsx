@@ -76,7 +76,7 @@ const Login = () => {
             <h6>Log in your Account</h6>
             <div className="input-field">
               <span className='icon'><BsFillPersonFill /></span>
-              <input autoFocus value='tahirali@gmail.com' ref={emailRef} id='username' className='input-box' placeholder='Username or Email' type="text" />
+              <input autoFocus ref={emailRef} id='username' className='input-box' placeholder='Username or Email' type="text" />
             </div>
             {error && <div className='error'><span><MdError /></span>{error}</div>}
             <button className='btn' onClick={()=>handleEmail()}>Continue with Email</button>
@@ -92,7 +92,7 @@ const Login = () => {
             <p style={{ textAlign: 'center', fontSize: '15px', marginTop: '.5rem' }}>{emailInput}</p>
             <div className="input-field" style={{ marginTop: '1rem' }}>
               <span className='icon'><FaLock /></span>
-              <input autoFocus value='password' ref={passwordRef} id='password' className='input-box' placeholder='Enter your Password' type={!viewPassword ? 'password' : 'text'} />
+              <input autoFocus ref={passwordRef} id='password' className='input-box' placeholder='Enter your Password' type={!viewPassword ? 'password' : 'text'} />
               <span className='icon view-pw' onClick={()=>togglePassword()}>{!viewPassword ? <AiFillEye /> : <AiFillEyeInvisible />}</span>
             </div>
             {error && <div className='error'><span><MdError /></span>{error}</div>}
