@@ -1,1 +1,1 @@
-# Authentication using Firebase
+# Realtime Chat Application using Firebase
