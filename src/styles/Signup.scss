@@ -67,6 +67,34 @@ main{
                 }
             }
         }
+        .uploadFile{
+            margin: 1rem 0 0 0;
+            input{
+                display: none;
+            }
+            .btn{
+                display: flex;
+                font-size: 15px;
+                align-items: center;
+                cursor: pointer;
+                color: #3c4043;
+                border: 0.0625rem solid #e0e0e0;
+                padding-block: 5px;
+                color: #3c4043;
+                background-color: #fff;
+                justify-content: center;
+                transition: 0.2s;
+                border-radius: 0px;
+                &:hover{
+                    background-color: #a59f9f1e;
+                }
+                span{
+                    margin-right: 5px;
+                    font-size: 18px;
+                    margin-top: 4px;
+                }
+            }
+        }
         .disclaimer{
             text-align: center;
             font-weight: 500;

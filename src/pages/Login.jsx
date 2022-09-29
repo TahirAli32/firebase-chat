@@ -56,9 +56,14 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, emailInput, passwordRef.current.value)
       navigate('/')
     } catch (error) {
-      const errorCode = error.code;
+      const errorCode = error.code
       if(errorCode === 'auth/invalid-email'){
         setError("Entered Email is incorrect")
+        setEmail(false)
+        setPassword(true)
+      }
+      if(errorCode === 'auth/user-not-found'){
+        setError("User not Found")
         setEmail(false)
         setPassword(true)
       }
@@ -97,11 +102,11 @@ const Login = () => {
             </div>
             {error && <div className='error'><span><MdError /></span>{error}</div>}
             <div className="otherChecks" style={{ marginTop: '5px' }}>
-              <div>
-                <input style={{ cursor: 'pointer' }} type='checkbox' id='rememberMe' />
-                <label htmlFor='rememberMe' style={{ marginLeft: '5px', cursor: 'pointer' }}>Keep me logged in</label>
-              </div>
-              <p className='forgotPw'>Forgot Password?</p>
+            <div>
+              <input style={{ cursor: 'pointer' }} type='checkbox' id='rememberMe' />
+              <label htmlFor='rememberMe' style={{ marginLeft: '5px', cursor: 'pointer' }}>Keep me logged in</label>
+            </div>
+            <p className='forgotPw'>Forgot Password?</p>
             </div>
             <button className='btn' style={{marginTop: '1.5rem'}} onClick={()=>handleLogin()}>Login</button>
           </div>
