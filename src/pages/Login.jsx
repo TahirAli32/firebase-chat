@@ -8,6 +8,7 @@ import { FaLock } from 'react-icons/fa'
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from '../firebase'
 import AuthContext from '../stores/authContext'
+import { RiLoader3Fill } from 'react-icons/ri'
 
 const Login = () => {
 
@@ -27,6 +28,7 @@ const Login = () => {
   const [passwordInput, setPassword] = useState(true)
   const [viewPassword, setViewPassword] = useState(false)
   const [error, setError] = useState(false)
+  const [isLoading, setLoading] = useState(false)
 
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -51,24 +53,28 @@ const Login = () => {
       return
     }
     setError(false)
-
+    setLoading(true)
     try {
       await signInWithEmailAndPassword(auth, emailInput, passwordRef.current.value)
+      setLoading(false)
       navigate('/')
     } catch (error) {
       const errorCode = error.code
       if(errorCode === 'auth/invalid-email'){
         setError("Entered Email is incorrect")
+        setLoading(false)
         setEmail(false)
         setPassword(true)
       }
       if(errorCode === 'auth/user-not-found'){
         setError("User not Found")
+        setLoading(false)
         setEmail(false)
         setPassword(true)
       }
       if(errorCode === 'auth/wrong-password'){
         setError("Entered Password is incorrect")
+        setLoading(false)
       }
     }
   }
@@ -81,7 +87,7 @@ const Login = () => {
             <h6>Log in your Account</h6>
             <div className="input-field">
               <span className='icon'><BsFillPersonFill /></span>
-              <input autoFocus ref={emailRef} id='username' className='input-box' placeholder='Username or Email' type="text" />
+              <input autoFocus ref={emailRef} id='username' className='input-box' placeholder='Your Email' type="text" />
             </div>
             {error && <div className='error'><span><MdError /></span>{error}</div>}
             <button className='btn' onClick={()=>handleEmail()}>Continue with Email</button>
@@ -108,7 +114,7 @@ const Login = () => {
             </div>
             <p className='forgotPw'>Forgot Password?</p>
             </div>
-            <button className='btn' style={{marginTop: '1.5rem'}} onClick={()=>handleLogin()}>Login</button>
+            <button className='btn' style={!isLoading ? {marginTop: '1.5rem'} : {marginTop: '1.5rem', padding: '6.5px 0'}} onClick={()=>handleLogin()}>{!isLoading ? 'Login' : <span className='loadingIcon'><RiLoader3Fill /></span> }</button>
           </div>
         }
       </div>

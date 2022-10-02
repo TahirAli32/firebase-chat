@@ -18,11 +18,10 @@ const Messenger = () => {
     const { currentUser } = useContext(AuthContext)
     const { data } = useContext(MessagesContext)
 
-    // console.log(currentUser.displayName)
+    // console.log(currentUser)
 
     const [username, setUsername] = useState("")
     const [user, setUser] = useState("")
-    const [error, setError] = useState(false)
     const [messages, setMessages] = useState([])
     const [text, setText] = useState("")
 
@@ -67,7 +66,7 @@ const Messenger = () => {
         const q = query(
             collection(db, 'users'),
             where("displayName", "==", username),
-            where("displayName", "!=", currentUser.displayName),
+            where("uid", "!=", currentUser.uid),
         )
         try{
             const querySnapshot = await getDocs(q)
@@ -75,7 +74,7 @@ const Messenger = () => {
                 setUser(doc.data())
             })
         }catch(error){
-            setError(error)
+            console.log(error.message)
         }
     }
 
@@ -121,7 +120,6 @@ const Messenger = () => {
                             </div>
                         </div>
                         <input type="text" className='chatMenuInput' value={username} onKeyDown={e => e.code === "Enter" && handleSearch()} onChange={e => setUsername(e.target.value)} placeholder='Search Friends Name' />
-                        <span>{error}</span>
                         {user &&
                             <div className='searchUser' onClick={() => handleSelect()}>
                                 <img src={user.photoURL} alt="img" className="searchUserImg" />

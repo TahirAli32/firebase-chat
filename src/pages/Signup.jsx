@@ -8,6 +8,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { doc, setDoc } from 'firebase/firestore'
 import { auth, db, storage } from '../firebase'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { RiLoader3Fill } from 'react-icons/ri'
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -29,6 +30,7 @@ const Signup = () => {
     }
     setError(false)
 
+    setLoading(true)
     try{
       const res = await createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
 
@@ -38,9 +40,6 @@ const Signup = () => {
 
       uploadTask.on('state_changed', 
         (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          // console.log('Upload is ' + progress.toFixed(2) + '% done');
-          setLoading(`Creating User - ${progress.toFixed(2)}% Completed`)
         }, 
         (error) => {
           setError(error)
@@ -60,17 +59,26 @@ const Signup = () => {
               photoURL: downloadURL
             })
             await setDoc(doc(db, "userChats", res.user.uid), {})
-            navigate('/')
             setLoading(false)
+            navigate('/')
           })
         }
       )
     }
     catch(error){
       const errorCode = error.code
-      if(errorCode === 'auth/email-already-in-use') setError("Email Already Exists")
-      if(errorCode === 'auth/invalid-email') setError("Please Enter a Valid Email")
-      if(errorCode === 'auth/weak-password') setError("Password should be 6 characters long")
+      if(errorCode === 'auth/email-already-in-use') {
+        setError("Email Already Exists")
+        setLoading(false)
+      }
+      if(errorCode === 'auth/invalid-email') {
+        setError("Please Enter a Valid Email")
+        setLoading(false)
+      }
+      if(errorCode === 'auth/weak-password') {
+        setError("Password should be 6 characters long")
+        setLoading(false)
+      }
     }
   }
 
@@ -109,7 +117,7 @@ const Signup = () => {
         <div className='disclaimer'>
           <span>I agree to the Terms of Use and Privacy Policy</span>
         </div>
-        <button className='btn' onClick={()=>handleSignUp()} style={{ marginTop: '1.5rem' }}>{!isLoading ? 'Sign Up' : isLoading}</button>
+        <button className='btn' onClick={()=>handleSignUp()} style={!isLoading ? {marginTop: '1.5rem'} : {marginTop: '1.5rem', padding: '6.5px 0'}}>{!isLoading ? 'Sign Up' : <span className='loadingIcon'><RiLoader3Fill /></span>}</button>
         <p className="logIn">Already have an account? <Link to={'/login'}>Log In</Link></p>
       </div>
     </main>
