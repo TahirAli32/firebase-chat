@@ -42,25 +42,32 @@ const Messenger = () => {
     }, [data])
 
     const handleSend = async () => {
-        await updateDoc(doc(db, "chats", data.chatID),{
-            messages: arrayUnion({
-                id: uuid(),
-                text,
-                senderId: currentUser.uid,
-                date: Timestamp.now()
+        if(!text.match(/([^\s])/)){
+            return
+        }
+        try {
+            await updateDoc(doc(db, "chats", data.chatID),{
+                messages: arrayUnion({
+                    id: uuid(),
+                    text,
+                    senderId: currentUser.uid,
+                    date: Timestamp.now()
+                })
             })
-        })
-        setText("")
-        await updateDoc(doc(db,"userChats", currentUser.uid),{
-            // 1:56:40 ---> For Last Message
-            [data.chatID+".date"]: serverTimestamp()
-        })
-        await updateDoc(doc(db,"userChats", data.user.uid),{
-            // 1:56:40 ---> For Last Message
-            [data.chatID+".date"]: serverTimestamp()
-        })
+            setText("")
+            await updateDoc(doc(db,"userChats", currentUser.uid),{
+                // 1:56:40 ---> For Last Message
+                [data.chatID+".date"]: serverTimestamp()
+            })
+            await updateDoc(doc(db,"userChats", data.user.uid),{
+                // 1:56:40 ---> For Last Message
+                [data.chatID+".date"]: serverTimestamp()
+            })
+        } catch (error) {
+            console.log(error.message)
+        }
     }
-    
+
     const handleSearch = async () => {
         setUser("")
         const q = query(
