@@ -88,11 +88,11 @@ const Signup = () => {
 
   return (
     <main>
-      <div className="signup">
+      <div className="signup" onKeyDown={e => e.code === "Enter" && handleSignUp()}>
         <h6>Create a Free Account</h6>
         {error && <div className='error'><span><MdError /></span>{error}</div>}
         <div className="inputField">
-          <input ref={nameRef} id='name' placeholder=" " className='inputBox' type="text" />
+          <input autoFocus ref={nameRef} id='name' placeholder=" " className='inputBox' type="text" />
           <label htmlFor="name" className='inputLabel'>Full Name</label>
         </div>
         <div className="inputField">

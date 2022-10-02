@@ -85,7 +85,7 @@ const Login = () => {
         {!emailInput &&
           <div className='email-login'>
             <h6>Log in your Account</h6>
-            <div className="input-field">
+            <div className="input-field" onKeyDown={e => e.code === "Enter" && handleEmail()}>
               <span className='icon'><BsFillPersonFill /></span>
               <input autoFocus ref={emailRef} id='username' className='input-box' placeholder='Enter Your Email' type="text" />
             </div>
@@ -101,7 +101,7 @@ const Login = () => {
           <div className='password-login'>
             <h6>Welcome</h6>
             <p style={{ textAlign: 'center', fontSize: '15px', marginTop: '.5rem' }}>{emailInput}</p>
-            <div className="input-field" style={{ marginTop: '1rem' }}>
+            <div className="input-field" onKeyDown={e => e.code === "Enter" && handleLogin()} style={{ marginTop: '1rem' }}>
               <span className='icon'><FaLock /></span>
               <input autoFocus ref={passwordRef} id='password' className='input-box' placeholder='Enter your Password' type={!viewPassword ? 'password' : 'text'} />
               <span className='icon view-pw' onClick={()=>togglePassword()}>{!viewPassword ? <AiFillEye /> : <AiFillEyeInvisible />}</span>
