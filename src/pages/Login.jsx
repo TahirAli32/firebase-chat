@@ -87,7 +87,7 @@ const Login = () => {
             <h6>Log in your Account</h6>
             <div className="input-field">
               <span className='icon'><BsFillPersonFill /></span>
-              <input autoFocus ref={emailRef} id='username' className='input-box' placeholder='Your Email' type="text" />
+              <input autoFocus ref={emailRef} id='username' className='input-box' placeholder='Enter Your Email' type="text" />
             </div>
             {error && <div className='error'><span><MdError /></span>{error}</div>}
             <button className='btn' onClick={()=>handleEmail()}>Continue with Email</button>
@@ -107,13 +107,6 @@ const Login = () => {
               <span className='icon view-pw' onClick={()=>togglePassword()}>{!viewPassword ? <AiFillEye /> : <AiFillEyeInvisible />}</span>
             </div>
             {error && <div className='error'><span><MdError /></span>{error}</div>}
-            <div className="otherChecks" style={{ marginTop: '5px' }}>
-            <div>
-              <input style={{ cursor: 'pointer' }} type='checkbox' id='rememberMe' />
-              <label htmlFor='rememberMe' style={{ marginLeft: '5px', cursor: 'pointer' }}>Keep me logged in</label>
-            </div>
-            <p className='forgotPw'>Forgot Password?</p>
-            </div>
             <button className='btn' style={!isLoading ? {marginTop: '1.5rem'} : {marginTop: '1.5rem', padding: '6.5px 0'}} onClick={()=>handleLogin()}>{!isLoading ? 'Login' : <span className='loadingIcon'><RiLoader3Fill /></span> }</button>
           </div>
         }

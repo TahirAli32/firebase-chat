@@ -92,18 +92,6 @@ main {
                 margin: 2px 3px auto 0;
             }
         }
-        .otherChecks {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            .forgotPw {
-                color: green;
-                cursor: pointer;
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
         .btn {
             margin: 1.2rem 0;
             width: 100%;
