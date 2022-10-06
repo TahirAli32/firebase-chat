@@ -80,6 +80,12 @@ const Messenger = () => {
             querySnapshot.forEach( doc => {
                 setUser(doc.data())
             })
+
+            const querySnapshot1 = await getDocs(collection(db, "users"));
+                querySnapshot1.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data())
+            })
+
         }catch(error){
             console.log(error.message)
         }
@@ -97,7 +103,7 @@ const Messenger = () => {
                         displayName: user.displayName,
                         photoURL: user.photoURL
                     },
-                    [combinedID + ".data"]: serverTimestamp()
+                    [combinedID + ".date"]: serverTimestamp()
                 })
                 await updateDoc(doc(db, "userChats", user.uid),{
                     [combinedID + ".userInfo"]: {
@@ -105,7 +111,7 @@ const Messenger = () => {
                         displayName: currentUser.displayName,
                         photoURL: currentUser.photoURL
                     },
-                    [combinedID + ".data"]: serverTimestamp()
+                    [combinedID + ".date"]: serverTimestamp()
                 })
             }
         } catch (error) {
