@@ -56,11 +56,11 @@ const Messenger = () => {
             })
             setText("")
             await updateDoc(doc(db,"userChats", currentUser.uid),{
-                // 1:56:40 ---> For Last Message
+                // [data.chatID+".lastMessage"]: text,
                 [data.chatID+".date"]: serverTimestamp()
             })
             await updateDoc(doc(db,"userChats", data.user.uid),{
-                // 1:56:40 ---> For Last Message
+                // [data.chatID+".lastMessage"]: text,
                 [data.chatID+".date"]: serverTimestamp()
             })
         } catch (error) {
@@ -81,10 +81,10 @@ const Messenger = () => {
                 setUser(doc.data())
             })
 
-            const querySnapshot1 = await getDocs(collection(db, "users"));
-                querySnapshot1.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data())
-            })
+            // const querySnapshot1 = await getDocs(collection(db, "users"));
+            //     querySnapshot1.forEach((doc) => {
+            //     console.log(doc.id, " => ", doc.data())
+            // })
 
         }catch(error){
             console.log(error.message)

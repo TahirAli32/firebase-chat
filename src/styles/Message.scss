@@ -8,8 +8,8 @@
         .messageText{
             padding: 10px;
             border-radius: 0px 4px 4px 4px;
-            background-color: #1877f2;
-            color: #fff;
+            background-color: #18f2ce;
+            color: #000;
             max-width: 350px;
             position: relative;
             &::before{
@@ -21,7 +21,7 @@
                 left: -12px;
                 border-top: 6px solid transparent;
                 border-bottom: 6px solid transparent;
-                border-right: 12px solid #1877f2;
+                border-right: 12px solid #18f2ce;
             }
         }
     }
@@ -37,23 +37,13 @@
     align-items: flex-end;
     .messageText{
         border-radius: 4px 0px 4px 4px;
-        // background-color: #f5f1f1;
-        background-color: #dfdfdf;
+        background-color: #e6d3bd;
         color: #000;
         &::before{
             left: auto;
             right: -12px;
             border-right: none;
-            border-left: 12px solid #dfdfdf;
+            border-left: 12px solid #e6d3bd;
         }
     }
 }
-// .message.own .messageText{
-//     background-color: #f5f1f1;
-//     color: #000;
-//     &::before{
-//         left: 195px;
-//         border-right: none;
-//         border-left: 12px solid #f5f1f1;
-//     }
-// }
