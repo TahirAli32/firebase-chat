@@ -27,8 +27,7 @@ const Messenger = () => {
 
     
     useEffect(() => {
-        if(currentUser)
-        return
+        if(currentUser) return
         navigate('/login')
     }, [navigate, currentUser])
     
